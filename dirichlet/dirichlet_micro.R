@@ -11,14 +11,16 @@ suppressPackageStartupMessages({
 # -----------------------------
 # Paths + inputs
 # -----------------------------
-work_dir <- "/home/bavot/TREM2/Micro/dirichlet"
+source(file.path(Sys.getenv("TREM2_ANALYSIS_ROOT"), "config.R"))
+
+work_dir <- cfg$dirichlet_work_dir
 setwd(work_dir)
 
-source("/home/bavot/additional_scripts/get_celltype_freq.r")
-source("/home/bavot/additional_scripts/process_dirichlet_fit.r")
+source(file.path(Sys.getenv("TREM2_ANALYSIS_ROOT"), "dirichlet/additional_scripts/get_celltype_freq.r"))
+source(file.path(Sys.getenv("TREM2_ANALYSIS_ROOT"), "dirichlet/additional_scripts/process_dirichlet_fit.r"))
 
 celltype_label <- "Micro"
-seu_path <- "/mnt/data/bavot/TREM2/SEU/Micro_seu.qs"
+seu_path <- cfg$seu_micro
 
 outdir <- file.path(sprintf("subclustering_%s_full_cohort", celltype_label), "dirichlet")
 dir.create(outdir, recursive = TRUE, showWarnings = FALSE)

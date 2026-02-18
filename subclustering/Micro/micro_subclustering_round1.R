@@ -12,13 +12,15 @@ suppressPackageStartupMessages({
 # ------------------------------------------------------------------------------
 # Configuration
 # ------------------------------------------------------------------------------
-work_dir <- "/rds/general/user/bavot/home/scflow/subclustering/"
+source(file.path(Sys.getenv("TREM2_ANALYSIS_ROOT"), "config.R"))
+
+work_dir <- cfg$subclustering_dir
 setwd(work_dir)
 
 celltype <- "Micro"
 clustering_round <- "round1"
 
-sce_path <- "/rds/general/project/ukdrmultiomicsproject/live/MAP_analysis/TREM2_enriched_scflow/dge/split_sce/celltype_sce/celltype_sce/original/Micro_sce.qs"
+sce_path <- cfg$sce_original
 
 outdir <- file.path(work_dir, paste0("subclustering_", celltype, "_full_cohort"))
 dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
@@ -124,8 +126,7 @@ write.table(markers, file = markers_path, sep = "\t", row.names = FALSE, quote =
 # ------------------------------------------------------------------------------
 # Marker heatmap
 # ------------------------------------------------------------------------------
-heatmap_fun <- "/rds/general/project/ukdrmultiomicsproject/live/MAP_pipelines/snRNAseq/additional_scripts/plot_marker_heatmap.r"
-source(heatmap_fun)
+source(cfg$heatmap_script)
 
 # pick up to 10 significant markers per cluster, then de-duplicate genes
 markers_for_ht <- read.delim(markers_path) %>%
@@ -155,12 +156,11 @@ ggsave(filename = file.path(sub_dir, sprintf("dimplot_%s.png", cluster_col)),
 # ------------------------------------------------------------------------------
 # EWCE-based cell type annotation
 # ------------------------------------------------------------------------------
-annot_fun <- "/rds/general/project/ukdrmultiomicsproject/live/MAP_pipelines/snRNAseq/additional_scripts/map_celltype_seu.r"
-source(annot_fun)
+source(cfg$celltype_map_script)
 
 seu <- map_celltypes_seu(
   seu,
-  ctd_dir = "/rds/general/project/ukdrmultiomicsproject/live/MAP_pipelines/snRNAseq/assets/ctd",
+  ctd_dir = cfg$ctd_dir,
   clusters_colname = cluster_col
 )
 

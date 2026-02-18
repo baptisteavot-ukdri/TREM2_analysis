@@ -34,19 +34,21 @@ suppressPackageStartupMessages({
 # -----------------------------
 # INPUT PATHS
 # -----------------------------
+source(file.path(Sys.getenv("TREM2_ANALYSIS_ROOT"), "config.R"))
+
 paths_astro <- c(
-  CV   = "/mnt/data/bavot/TREM2/regulon_analysis/Astro_subcelltype_specific_markers/wilcox_subclusters_Astro_pb_CV.tsv",
-  R47H = "/mnt/data/bavot/TREM2/regulon_analysis/Astro_subcelltype_specific_markers/wilcox_subclusters_Astro_pb_R47H.tsv",
-  R62H = "/mnt/data/bavot/TREM2/regulon_analysis/Astro_subcelltype_specific_markers/wilcox_subclusters_Astro_pb_R62H.tsv"
+  CV   = file.path(cfg$astro_markers_dir, "wilcox_subclusters_Astro_pb_CV.tsv"),
+  R47H = file.path(cfg$astro_markers_dir, "wilcox_subclusters_Astro_pb_R47H.tsv"),
+  R62H = file.path(cfg$astro_markers_dir, "wilcox_subclusters_Astro_pb_R62H.tsv")
 )
 
 paths_micro <- c(
-  CV   = "/mnt/data/bavot/TREM2/regulon_analysis/Micro_subcelltype_specific_markers/wilcox_subclusters_Micro_pb_CV.tsv",
-  R47H = "/mnt/data/bavot/TREM2/regulon_analysis/Micro_subcelltype_specific_markers/wilcox_subclusters_Micro_pb_R47H.tsv"
+  CV   = file.path(cfg$micro_markers_dir, "wilcox_subclusters_Micro_pb_CV.tsv"),
+  R47H = file.path(cfg$micro_markers_dir, "wilcox_subclusters_Micro_pb_R47H.tsv")
 )
 
-out_png_astro <- "/mnt/data/bavot/TREM2/regulon_analysis/Astro_subcelltype_specific_markers/astro_one_vs_all_CV_R47H_R62H_pubready_horizontal.png"
-out_png_micro <- "/mnt/data/bavot/TREM2/regulon_analysis/Micro_subcelltype_specific_markers/micro_one_vs_all_CV_R47H_pubready_horizontal.png"
+out_png_astro <- file.path(cfg$astro_markers_dir, "astro_one_vs_all_CV_R47H_R62H_pubready_horizontal.png")
+out_png_micro <- file.path(cfg$micro_markers_dir, "micro_one_vs_all_CV_R47H_pubready_horizontal.png")
 
 # -----------------------------
 # FILTERING THRESHOLDS

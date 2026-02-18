@@ -11,7 +11,8 @@ suppressPackageStartupMessages({
   library(limma)
 })
 
-source("/rds/general/project/ukdrmultiomicsproject/live/MAP_pipelines/snRNAseq/pseudobulk_dge/generate_pseudobulk_limma_trend_deg_gazestani.r")
+source(file.path(Sys.getenv("TREM2_ANALYSIS_ROOT"), "config.R"))
+source(cfg$pseudobulk_script)
 
 # ------------------------------------------------------------------------------
 # CLI

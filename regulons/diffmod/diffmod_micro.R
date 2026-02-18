@@ -15,16 +15,18 @@ suppressPackageStartupMessages({
 # -------------------------------------------------------------------------
 # Paths
 # -------------------------------------------------------------------------
+source(file.path(Sys.getenv("TREM2_ANALYSIS_ROOT"), "config.R"))
+
 paths <- list(
-  micro_sce     = "/rds/general/project/ukdrmultiomicsproject/live/MAP_analysis/TREM2_enriched_scflow/dge/split_sce/celltype_sce/celltype_sce/purified_with_Total4G8Density/Micro_sce.qs",
-  micro_seu     = "/rds/general/project/ukdrmultiomicsproject/live/MAP_analysis/TREM2_enriched_scflow/subclustering/Micro/subclusters_round2/v2/seu.qs",
-  auc_csv       = "/rds/general/user/bavot/home/pySCENIC/out/Micro_no_hvg.auc_mtx.csv",
-  out_base      = "/rds/general/user/bavot/home/pySCENIC",
-  out_markers   = "/rds/general/user/bavot/home/pySCENIC/out/wilcox_subclusters_Micro.tsv",
-  out_seu_auc   = "/rds/general/user/bavot/home/pySCENIC/diffmod_subcelltypes/seu_with_auc_Total4G8Density.qs",
-  out_pb_R47H   = "/rds/general/user/bavot/home/pySCENIC/TREM2/out/wilcox_subclusters_Micro_pb_R47H.tsv",
-  out_dream_dir = "/rds/general/user/bavot/home/pySCENIC/diffmod_subcelltypes/Total4G8Density",
-  out_umap_pdf  = "/rds/general/user/bavot/home/pySCENIC/diffmod_subcelltypes/UMAP/modulescore_Micro_UMAP.pdf"
+  micro_sce     = cfg$sce_purified,
+  micro_seu     = cfg$seu_round2,
+  auc_csv       = cfg$auc_csv,
+  out_base      = cfg$pyscenic_out_dir,
+  out_markers   = file.path(cfg$pyscenic_out_dir, "out/wilcox_subclusters_Micro.tsv"),
+  out_seu_auc   = file.path(cfg$pyscenic_out_dir, "diffmod_subcelltypes/seu_with_auc_Total4G8Density.qs"),
+  out_pb_R47H   = file.path(cfg$pyscenic_out_dir, "TREM2/out/wilcox_subclusters_Micro_pb_R47H.tsv"),
+  out_dream_dir = file.path(cfg$pyscenic_out_dir, "diffmod_subcelltypes/Total4G8Density"),
+  out_umap_pdf  = file.path(cfg$pyscenic_out_dir, "diffmod_subcelltypes/UMAP/modulescore_Micro_UMAP.pdf")
 )
 
 dir.create(paths$out_base, recursive = TRUE, showWarnings = FALSE)

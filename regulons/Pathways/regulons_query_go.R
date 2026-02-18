@@ -12,7 +12,10 @@ suppressPackageStartupMessages({
   library(stringr)
 })
 
-csv_path <- "/rds/general/project/ukdrmultiomicsproject/live/MAP_analysis/TREM2_enriched_scflow/pySCENIC/out/wholeMicro/Micro.regulons.filtered.csv"
+source(file.path(Sys.getenv("TREM2_ANALYSIS_ROOT"), "config.R"))
+dir.create(cfg$regulons_out_dir, recursive = TRUE, showWarnings = FALSE)
+
+csv_path <- cfg$regulons_csv
 
 lines <- readLines(csv_path, warn = FALSE)
 
@@ -72,7 +75,7 @@ tf_targets_flat <- tf_targets %>%
   dplyr::select(TF, n_targets, targets_csv)
 
 # write it if you want
-write_csv(tf_targets_flat, "/rds/general/user/bavot/home/TREM2/Micro/regulons/TF_targets_merged.csv")
+write_csv(tf_targets_flat, file.path(cfg$regulons_out_dir, "TF_targets_merged.csv"))
 
 # ---- 4) GO enrichment per TF for BP, MF, CC ----
 background_symbols <- sort(unique(unlist(tf_targets$targets)))
@@ -122,4 +125,4 @@ go_results_all <- pmap_dfr(
   }
 )
 
-write_csv(go_results_all, "/rds/general/user/bavot/home/TREM2/Micro/regulons/TF_GO_enrichment_BP_MF_CC_top10.csv")
+write_csv(go_results_all, file.path(cfg$regulons_out_dir, "TF_GO_enrichment_BP_MF_CC_top10.csv"))
